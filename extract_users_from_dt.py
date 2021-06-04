@@ -206,7 +206,7 @@ if __name__ == "__main__":
 
     if args.archive:
         extract_from_cli_archive(args.archive, args.output)
-    if args.bucket:
+    elif args.bucket:
         extract_from_cli_bucket(args.bucket, args.output)
     else:
         projects = dt_api.get_projects(limit=1000)

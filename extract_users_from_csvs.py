@@ -11,8 +11,7 @@ import timestring
 from utils import batch_list
 from zipfile import ZipFile
 from nltk import word_tokenize
-from text_utils import get_hashtag_count, get_list_item_count, get_url_count
-from utils import get_twitter_auth
+from utils import get_hashtag_count, get_list_item_count, get_url_count, get_twitter_auth
 import tweepy
 
 SCREEN_NAME_COLUMN = 'Value'

@@ -1,8 +1,7 @@
 import argparse
 from collections import Counter
 from nltk.corpus import stopwords
-from text_utils import clean_text, tokenize
-import text_stats
+from utils import clean_text, tokenize, get_urls, get_hashtags
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd
 
@@ -49,8 +48,8 @@ if __name__ == "__main__":
         if not input_text:
             continue
 
-        urls = text_stats.get_urls(input_text)
-        hashtags = text_stats.get_hashtags(input_text)
+        urls = get_urls(input_text)
+        hashtags = get_hashtags(input_text)
         cleaned = clean_text(input_text, remove_urls=True)
         tokens = tokenize(cleaned)
         if len(tokens) == 0:

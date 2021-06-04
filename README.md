@@ -98,11 +98,11 @@ Usage: python train_nnet.py -i {input_csv_file}
 
 -   [extract_users_from_csvs.py](#script-extract_users_from_csvs-py): Get Twitter user information from CSV username list
 -   [extract_users_from_dt.py](#script-extract_users_from_dt-py): Extract Twitter usernames from a DiscoverText archive or bucket
--   [Output various statistics for bios in a corpus](#script-gather_bio_corpus_stats-py)
--   [Runs the neural network model across Twitter user information](#script-run_nnet-py)
--   [Splits a training CSV file into training and test sets](#script-split_training_data-py)
--   [Trains the n-gram classifier](#script-train_ngram_classifier-py)
--   [Trains the neural network](#script-train_nnet-py)
+-   [gather_bio_corpus_stats.py](#script-gather_bio_corpus_stats-py): Output various statistics for bios in a corpus
+-   [run_nnet.py](#script-run_nnet-py): Runs the neural network model across Twitter user information
+-   [split_training_data.py](#script-split_training_data-py): Splits a training CSV file into training and test sets
+-   [train_ngram_classifier.py](#script-train_ngram_classifier-py): Trains the n-gram classifier
+-   [train_nnet.py](#script-train_nnet-py): Trains the neural network
 
 ### script: extract_users_from_csvs.py
 
@@ -187,7 +187,7 @@ Usage: python train_nnet.py -i {input_csv_file}
 -   ngram_model is the .dat file from the trained ngram classifier
 -   number of rounds is the number of rounds to train
 -   test file is the test CSV file used to gather accuracy testing
--   output file is the .dat files with the trainined neural network model
+-   output file is the .dat files with the trained neural network model
 
 ## License
 
