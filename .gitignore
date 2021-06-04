@@ -1,0 +1,4 @@
+/.vscode/**
+/env/**
+/pandas/**
+**/__pycache__/**
