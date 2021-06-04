@@ -4,6 +4,7 @@ A collection of scripts used to train and run a classifier to classify Twitter u
 The classifier models are based on Twitter user information and focuses heavily on the user bio description.
 
 -   [Prerequisites](#Prerequisites)
+-   [Environment Setup](#Environment-Setup)
 -   [Basic Workflow (CSV file)](#Basic-Workflow-CSV-file)
 -   [Basic Workflow (DiscoverText API)](#Basic-Workflow-DiscoverText-API)
 -   [Basic Workflow (Gnip Raw Json)](#Basic-Workflow-Gnip-Raw-Json)
@@ -17,6 +18,21 @@ The classifier models are based on Twitter user information and focuses heavily 
 -   If using Windows, you may need to use 32-bit python as there have been issues using the Pandas library on 64 bit
 -   A Twitter Developer account with an application (https://developer.twitter.com/). You'll need the _Consumer API keys_ as well as a set of _Access token & access token secret_ pairs for the application.
 -   (if connecting to the DiscoverText API), you'll need your DiscoverText API key, API secret, hostname, username, and password
+
+## Environment Setup
+
+-   Create your virtual environment. E.g. : `python -m venv env`
+-   Activate your environment (`env/bin/activate`, or on Windows: `env\Scripts\activate`)
+-   Install requirements: `pip install -r requirements.txt`
+-   Install nltk resources:
+
+```
+$ python
+>>> import nltk
+>>> nltk.download('stopwords')
+>>> nltk.download('punkt')
+>>> exit()
+```
 
 ### Credential Setup:
 
