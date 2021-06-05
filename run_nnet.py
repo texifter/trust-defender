@@ -22,6 +22,7 @@ CLASS_WEIGHTS = [
     ("url_count", 1.018365516)
 ]
 
+
 def get_input_vector(row, classifier):
     '''
     (classifier): p_good
@@ -35,8 +36,9 @@ def get_input_vector(row, classifier):
     num_hashtags
     url_count
     '''
-    class_probs = classifier.classify_text(str(row["user_profile_description"]))
-    ret = [ class_probs["good"], class_probs["bot"]]
+    class_probs = classifier.classify_text(
+        str(row["user_profile_description"]))
+    ret = [class_probs["good"], class_probs["bot"]]
     for label, weight in CLASS_WEIGHTS:
         try:
             ret.append(float(row[label]) * weight)
@@ -51,17 +53,17 @@ def get_training_output(row):
 
 
 def recall_m(y_true, y_pred):
-        true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-        possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-        recall = true_positives / (possible_positives + K.epsilon())
-        return recall
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    recall = true_positives / (possible_positives + K.epsilon())
+    return recall
 
 
 def precision_m(y_true, y_pred):
-        true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-        predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-        precision = true_positives / (predicted_positives + K.epsilon())
-        return precision
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    precision = true_positives / (predicted_positives + K.epsilon())
+    return precision
 
 
 def f1_m(y_true, y_pred):
@@ -99,7 +101,8 @@ if __name__ == "__main__":
         loaded_model_json = json_file.read()
         nnet = model_from_json(loaded_model_json)
     nnet.load_weights(f'{args.nnetmodel}.h5')
-    nnet.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc',f1_m,precision_m, recall_m])
+    nnet.compile(loss='binary_crossentropy', optimizer='adam',
+                 metrics=['acc', f1_m, precision_m, recall_m])
 
     df_test = pd.read_csv(args.input, keep_default_na=False)
 
@@ -117,6 +120,7 @@ if __name__ == "__main__":
         targets_x.append(input_vector)
     predictions = nnet.predict(numpy.array(targets_x))
     df_test["is_bot_belief"] = predictions
-    df_test["is_bot"] = df_test.apply(lambda row: is_bot_value(row["verified"], row["is_bot_belief"]), axis=1)
+    df_test["is_bot"] = df_test.apply(lambda row: is_bot_value(
+        row["verified"], row["is_bot_belief"]), axis=1)
 
     df_test.to_csv(args.output)

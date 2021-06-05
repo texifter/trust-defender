@@ -8,10 +8,10 @@ SET DataPath=%1
 SET InputFilenameNoExt=%2
 SET ArchiveId=%3
 
-SET TwitterCredentials=".\twitter_auth_real.json"
-SET DTCredentials=".\dt_active_credentials.json"
-SET NNModel=".\resources\model-is_bot_nnet.dat"
-SET NGramModel=".\resources\model-is_bot_user_desc_ngram_class.dat"
+SET TwitterCredentials=".\twitter_auth.json"
+SET DTCredentials=".\dt_credentials.json"
+SET NNModel=".\resources\model-is_good_or_bad_nnet.dat"
+SET NGramModel=".\resources\model-is_good_or_bad_user_desc_ngram_class.dat"
 SET FullInputPath="%DataPath%\%InputFilenameNoExt%.csv"
 SET ExtractOutputPath="%DataPath%\%InputFilenameNoExt%_userdat.csv"
 SET FinalOutputPath="%DataPath%\%InputFilenameNoExt%_scored.csv"

@@ -1,7 +1,7 @@
-# Trust Defender - A Twitter User Bot Classifier
+# Trust Defender - A Twitter User Classifier
 
-A collection of scripts used to train and run a classifier to classify Twitter users as potential bots.
-The classifier models are based on Twitter user information and focuses heavily on the user bio description.
+A collection of scripts used to train and run a classifier to classify Twitter users as potential good or bad actors.
+The classifier models are based on Twitter user information and focuses heavily on the user bio description to make determinations.
 
 -   [Prerequisites](#Prerequisites)
 -   [Environment Setup](#Environment-Setup)
@@ -69,9 +69,9 @@ Usage: run-score-dtarchive {data_directory} {base_filename_without_ext} {archive
 _(note: there are already well-tuned, pre-trained classifiers in place - only re-train if necessary)_
 The pre-trained models can be found at:
 
--   `/resources/model-is_bot_nnet.dat`: Keras trained file for the neural network
--   `/resources/model-is_bot_nnet.dat.h5`: Keras trained file for the neural network
--   `/resources/model-is_bot_user_desc_ngram_class.dat`: the n-gram classifier pre-trained model
+-   `/resources/model-is_good_or_bad_nnet.dat`: Keras trained file for the neural network
+-   `/resources/model-is_good_or_bad_nnet.dat.h5`: Keras trained file for the neural network
+-   `/resources/model-is_good_or_bad_user_desc_ngram_class.dat`: the n-gram classifier pre-trained model
 
 There are two primary classifier types:
 
@@ -157,20 +157,20 @@ Usage: gather_bio_corpus_stats.py -i (input_file)
 
 -   input file is the CSV output from extract_users_from_csvs.py
 
-The output will be printed to the console with the top 100 terms, top 100 URLs, and top 100 hashtags.
+The output will be printed to the console with the top 100 terms, top 100 URLs, and top 100 hashtagsassa.
 
 ### script: run_nnet.py
 
-Runs the classifier and neural network, scoring Twitter data as bot or not.
+Runs the classifier and neural network, scoring Twitter data as bot or good.
 
 ```
 Usage: run_nnet.py -i (input_file) -o (output_file) -n (neural_net_model) -m (ngram_model)
 ```
 
 -   input file is the CSV output from extract_users_from_csvs.py
--   output file will be a CSV, same as the input, but augmented with bot scores
--   the neural net model is the path to the _is_bot_nnet.dat_ file
--   the ngram model is the path to the _is_bot_user_desc_ngram_class.dat_ file
+-   output file will be a CSV, same as the input, but augmented with classification scores
+-   the neural net model is the path to the _is_good_or_bad_nnet.dat_ file
+-   the ngram model is the path to the _is_good_or_bad_user_desc_ngram_class.dat_ file
 
 ### script: split_training_data.py
 

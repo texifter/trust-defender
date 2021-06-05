@@ -23,9 +23,9 @@ if [ "$InputFilenameNoExt" == "" ]; then
     exit 1
 fi
 
-TwitterCredentials="./active_twitter_auth.json"
-NNModel="./resources/model-is_bot_nnet.dat"
-NGramModel="./resources/model-is_bot_user_desc_ngram_class.dat"
+TwitterCredentials="./twitter_auth.json"
+NNModel="./resources/model-is_good_or_bad_nnet.dat"
+NGramModel="./resources/model-is_good_or_bad_user_desc_ngram_class.dat"
 FullInputPath="$DataPath/$InputFilenameNoExt.csv"
 ExtractOutputPath="$DataPath/$InputFilenameNoExt.userdat.csv"
 FinalOutputPath="$DataPath/$InputFilenameNoExt.scored.csv"
