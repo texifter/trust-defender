@@ -7,7 +7,6 @@ The classifier models are based on Twitter user information and focuses heavily 
 -   [Environment Setup](#Environment-Setup)
 -   [Basic Workflow (CSV file)](#Basic-Workflow-CSV-file)
 -   [Basic Workflow (DiscoverText API)](#Basic-Workflow-DiscoverText-API)
--   [Basic Workflow (Gnip Raw Json)](#Basic-Workflow-Gnip-Raw-Json)
 -   [Training and Re-training the model](#Training-and-Re-training-the-model)
 -   [Individual Scripts](#Individual-Scripts)
 -   [License](#License)
@@ -22,7 +21,8 @@ The classifier models are based on Twitter user information and focuses heavily 
 ## Environment Setup
 
 -   Create your virtual environment. E.g. : `python -m venv env`
--   Activate your environment (`env/bin/activate`, or on Windows: `env\Scripts\activate`)
+-   If necessary, make the `.sh` scripts executable: `chmod +x run-csvs-score.sh` and `chmod +x run-score-dtarchive.sh`
+-   Activate your environment (`source env/bin/activate`, or on Windows: `env\Scripts\activate`)
 -   Install requirements: `pip install -r requirements.txt`
 -   Install nltk resources:
 
