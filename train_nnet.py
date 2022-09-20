@@ -1,9 +1,4 @@
-#import theano
-#theano.config.device = 'gpu'
-#theano.config.floatX = 'float32'
-
 import argparse
-import csv
 import numpy
 from keras import backend as K
 from keras.models import Sequential
@@ -12,7 +7,6 @@ import pandas as pd
 from ngram_classifier import NGramClassifier
 from sklearn.metrics import precision_recall_fscore_support
 from timeit import default_timer as timer
-import tensorflow as tf
 
 CLASS_WEIGHTS = [
     ("num_days", 0.997821848),

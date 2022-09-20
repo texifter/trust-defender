@@ -1,7 +1,6 @@
 import argparse
 import numpy
 import pandas as pd
-import os
 from keras import backend as K
 from keras.models import Sequential
 from keras.layers import Dense
@@ -10,7 +9,7 @@ from ngram_classifier import NGramClassifier
 from sklearn.metrics import precision_recall_fscore_support
 
 CLASS_WEIGHTS = [
-    ("num_days", 0.997821848), 
+    ("num_days", 0.997821848),
     ("statuses_per_day", 1.065570851),
     ("followers_per_day", 1.021055002),
     ("following_per_day", 1.122703153),
@@ -19,6 +18,7 @@ CLASS_WEIGHTS = [
     ("num_hashtags", 0.889418197),
     ("url_count", 1.018365516)
 ]
+
 
 def get_input_vector(row, classifier):
     '''
@@ -33,8 +33,9 @@ def get_input_vector(row, classifier):
     num_hashtags
     url_count
     '''
-    class_probs = classifier.classify_text(str(row["user_profile_description"]))
-    ret = [ class_probs["good"], class_probs["bot"]]
+    class_probs = classifier.classify_text(
+        str(row["user_profile_description"]))
+    ret = [class_probs["good"], class_probs["bot"]]
     for label, weight in CLASS_WEIGHTS:
         ret.append(float(row[label]) * weight)
     return ret
@@ -46,17 +47,17 @@ def get_training_output(row):
 
 
 def recall_m(y_true, y_pred):
-        true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-        possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
-        recall = true_positives / (possible_positives + K.epsilon())
-        return recall
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    possible_positives = K.sum(K.round(K.clip(y_true, 0, 1)))
+    recall = true_positives / (possible_positives + K.epsilon())
+    return recall
 
 
 def precision_m(y_true, y_pred):
-        true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
-        predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
-        precision = true_positives / (predicted_positives + K.epsilon())
-        return precision
+    true_positives = K.sum(K.round(K.clip(y_true * y_pred, 0, 1)))
+    predicted_positives = K.sum(K.round(K.clip(y_pred, 0, 1)))
+    precision = true_positives / (predicted_positives + K.epsilon())
+    return precision
 
 
 def f1_m(y_true, y_pred):
@@ -85,8 +86,9 @@ if __name__ == "__main__":
         loaded_model_json = json_file.read()
         nnet = model_from_json(loaded_model_json)
     nnet.load_weights(f'{args.nnetmodel}.h5')
-    nnet.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc',f1_m,precision_m, recall_m])
-    
+    nnet.compile(loss='binary_crossentropy', optimizer='adam',
+                 metrics=['acc', f1_m, precision_m, recall_m])
+
     df_test = pd.read_csv(args.input, keep_default_na=False)
     targets_x = []
     targets_y = []
@@ -95,6 +97,8 @@ if __name__ == "__main__":
         input_vector = get_input_vector(row, classifier)
         targets_x.append(input_vector)
         targets_y.append(get_training_output(row))
-    loss, accuracy, f1_score, precision, recall = nnet.evaluate(numpy.array(targets_x), numpy.array(targets_y), verbose=0)
+    loss, accuracy, f1_score, precision, recall = nnet.evaluate(
+        numpy.array(targets_x), numpy.array(targets_y), verbose=0)
 
-    print(f'loss: {loss}, acc: {accuracy}, prec: {precision}, recall: {recall}, f1: {f1_score}')
+    print(
+        f'loss: {loss}, acc: {accuracy}, prec: {precision}, recall: {recall}, f1: {f1_score}')

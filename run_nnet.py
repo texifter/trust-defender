@@ -1,7 +1,6 @@
 import argparse
 import numpy
 import pandas as pd
-import os
 from keras import backend as K
 from keras.models import Sequential
 from keras.layers import Dense

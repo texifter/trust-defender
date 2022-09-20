@@ -1,15 +1,10 @@
 import argparse
 from datetime import datetime
 import glob
-import gzip
-import json
 import pandas as pd
 import os
-import re
-import shutil
 import timestring
 from utils import batch_list
-from zipfile import ZipFile
 from nltk import word_tokenize
 from utils import get_hashtag_count, get_list_item_count, get_url_count, get_twitter_auth
 import tweepy

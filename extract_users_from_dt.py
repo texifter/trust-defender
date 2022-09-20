@@ -1,6 +1,5 @@
 import argparse
 import collections
-import json
 from discovertext_api import DiscoverTextApi
 import pandas as pd
 
