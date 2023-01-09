@@ -1,5 +1,5 @@
 import argparse
-from datetime import datetime
+from datetime import datetime, timezone
 import glob
 import pandas as pd
 import os
@@ -39,14 +39,15 @@ def get_twitter_api_batch(this_batch):
     retry_count = 0
     while True:
         try:
-            user_data = twitter_api.lookup_users(screen_names=this_batch)
+            user_data = twitter_api.lookup_users(screen_name=this_batch)
             return user_data
-        except:
+        except Exception as e:
             retry_count += 1
             if (retry_count > 3):
                 print(
                     f'!! exception getting Twitter API data... retry {retry_count} of 3...')
             else:
+                print(f'exception: {e}')
                 print('... too many retrys... skipping...')
                 return None
 
@@ -104,7 +105,7 @@ def get_batched_user_data(this_batch, todays_date):
 
 def get_user_data(screen_names):
     ret = []
-    todays_date = datetime.now()
+    todays_date = datetime.now(timezone.utc)
     for this_batch in batch_list(screen_names, 100):
         print(
             f'...getting batch of {len(this_batch)} from "{this_batch[0]}" to "{this_batch[-1]}"...')
@@ -135,8 +136,7 @@ if __name__ == "__main__":
         twitter_app_auth["consumer_key"], twitter_app_auth["consumer_secret"])
     twitter_auth.set_access_token(
         twitter_app_auth["access_token"], twitter_app_auth["access_secret"])
-    twitter_api = tweepy.API(
-        twitter_auth, wait_on_rate_limit_notify=True, wait_on_rate_limit=True)
+    twitter_api = tweepy.API(twitter_auth, wait_on_rate_limit=True)
 
     if os.path.isdir(args.input):
         all_files = glob.glob(os.path.join(args.input, "*.csv"))
