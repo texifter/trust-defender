@@ -1,7 +1,8 @@
 import pickle
 import math
 from .ngram_classifier_record import NGramClassifierRecord
-from collections import Counter, Sequence
+from collections import Counter
+from collections.abc import Sequence
 import utils as text_utils
 
 
