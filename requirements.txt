@@ -11,7 +11,7 @@ gast==0.4.0
 google-auth==2.11.1
 google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
-grpcio==1.48.1
+grpcio==1.56.0
 h5py==3.7.0
 idna==3.4
 joblib==1.2.0

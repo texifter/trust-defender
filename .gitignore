@@ -2,3 +2,4 @@
 /env/**
 /pandas/**
 **/__pycache__/**
+/data/**

@@ -35,9 +35,12 @@ def extract_and_save(project_id, entity_type, entity_id, entity_name, output_fil
             if not "metadata" in this_item:
                 continue
             screen_name_list = list(
-                filter(lambda x: x["key"].startswith("screen_name"), this_item["metadata"]))
-            if len(screen_name_list) > 0:
-                screen_names.update({screen_name_list[0]["value"]: 1})
+                filter(lambda x: (x["key"].startswith("screen_name") or
+                                  x["key"].startswith("from_user") or
+                                  x["key"].startswith("entities_mentions_username")),
+                       this_item["metadata"]))
+            for name in screen_name_list:
+                screen_names.update({name["value"]: 1})
 
         current_offset += 100
         if current_offset >= max_limit:
